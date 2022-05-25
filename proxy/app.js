@@ -23,12 +23,16 @@ const limiter = rateLimit({
 const app = express()
 app.use(limiter) // enable rate limit on every endpoint
 
+// Body parser for POST/PUT requests
+app.use(express.urlencoded());
+app.use(express.json());
+
 // Routes
-app.get('*', async (req, res) => {
+app.all('*', async (req, res) => {
   let path = req.path
   let method = req.method
   let headers = req.headers
-  let data = req.data
+  let body = req.body
   let token = ''
   if (headers['authorization'] || headers['x-algo-api-token']) {
     if (headers['authorization']) token = headers['authorization'].split(' ')[1]
@@ -39,7 +43,7 @@ app.get('*', async (req, res) => {
         let { data: resp } = await axios({
           method: method,
           url: full_url,
-          data: data,
+          data: body,
           headers: headers
         })
         return res.send(resp)

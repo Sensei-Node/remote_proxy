@@ -1,4 +1,4 @@
-# Simple authenticated proxy
+# Authenticated proxy
 
 Remote proxy is a simple but useful tool to protect your API servers, it has been created for different blockchain nodes and has been tested for Ethereum, Avalanche and Algorand but it works for any API endpoint that you wish to hide its IP and location from the public. 
 
